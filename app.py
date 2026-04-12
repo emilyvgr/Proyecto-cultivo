@@ -3,10 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-# 1. Configuración de la pestaña (Debe ir primero)
 st.set_page_config(page_title="Proyecto Cultivos", page_icon="🌱", layout="wide")
 
-# 2. Título visual en la página
 st.markdown("<h1 style='text-align: center; color: #000000;'>Dashboard de Análisis de los Factores Determinantes en Ciclos Agrícola </h1>", unsafe_allow_html=True)
 
 st.divider()
@@ -18,10 +16,8 @@ opcion = st.sidebar.selectbox(
 
 df = pd.read_csv("./27. Agricultura.csv")
 
-# Normalizar nombres de columnas
 df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 
-# Eliminar duplicados
 df = df.drop_duplicates()
 
 # Convertir tipos según tus columnas
@@ -29,10 +25,6 @@ for col in df.select_dtypes(include=["object", "string"]).columns:
     df[col] = df[col].str.strip()
 
 df = df.infer_objects()
-
-# Eliminar filas con valores faltantes en columnas críticas
-# Cambia ["columna_critica1", "columna_critica2"] por tus columnas importantes
-# df = df.dropna(subset=["columna_critica1", "columna_critica2"])
 
 q1_production = df["production"].quantile(0.25)
 q3_production = df["production"].quantile(0.75)
@@ -86,7 +78,6 @@ elif opcion == "Calculos estadisticos":
     st.subheader("Calculos estadisticos de los Factores Determinantes en Ciclos Agrícolas")   
     st.header("Resumen Estadístico")
     st.dataframe(df.describe(), use_container_width=True)
-
 
 elif opcion == "Frecuencia de Cultivos":
     st.subheader("Frecuencia de los Cultivos por Temporada")
