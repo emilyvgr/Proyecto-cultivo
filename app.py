@@ -3,6 +3,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 
+# 1. Configuración de la pestaña (Debe ir primero)
+st.set_page_config(page_title="Proyecto Cultivos", page_icon="🌱", layout="wide")
+
+# 2. Título visual en la página
+st.markdown("<h1 style='text-align: center; color: #000000;'>Dashboard de Análisis de los Factores Determinantes en Ciclos Agrícola </h1>", unsafe_allow_html=True)
+
+st.divider()
+
+opcion = st.sidebar.selectbox(
+    "¿Qué deseas ver?",
+    ("", "Calculos estadisticos", "Frecuencia de Cultivos", "Fertilizante", "Pesticida", "Rendimiento", "Precipitación", "Fertilizante vs Precipitación", "Precipitación vs Rendimiento")
+)
+
 df = pd.read_csv("./27. Agricultura.csv")
 
 # Normalizar nombres de columnas
@@ -48,79 +61,110 @@ df = df[df['season'] != 'Whole Year']
 df['season'] = df['season'].replace('Summer', 'Zaid')
 df['season'] = df['season'].replace('Winter', 'Rabi')
 df['season'] = df['season'].replace('Autumn', 'Kharif')
-"Info después de filtrar por temporada:"
-st.write(df.describe())
 
-# Gráfico de torta: Frecuencia de cultivos por temporada
-st.subheader("Frecuencia de los Cultivos por Temporada")
-freq_by_season_crop = df.groupby(['season', 'crop']).size().reset_index(name='count')
-# Usar solo los cultivos más frecuentes para no saturar el gráfico
-top_crops = (freq_by_season_crop.groupby('crop')['count']
-             .sum()
-             .nlargest(10)
-             .index)
-freq_top = freq_by_season_crop[freq_by_season_crop['crop'].isin(top_crops)]
-fig2 = px.pie(freq_top, values='count', names='crop',
-              title='Frecuencia de los cultivos más comunes')
-st.plotly_chart(fig2)
+if opcion == "":
+    st.markdown("""
+    <style>
+    .bienvenida {
+        font-family: 'Arial black';
+        color: #000000; /* Azul Pastel */
+        font-size: 14px;
+        text-align: center;
+        font-weight: bold;
+        padding: 18px;
+        border-radius: 8px;
+        background-color: #91be8c; /* Fondo muy suave */
+    }
+    </style>
+    <p class="bienvenida">
+        Bienvenido. Por favor, selecciona una categoría en el menú lateral para comenzar.
+    </p>
+    """, unsafe_allow_html=True)
+    st.write("Bienvenido. Por favor, selecciona una categoría en el menú de lateral para comenzar.")
 
-# Gráfico de torta: Fertilizante por temporada de cultivo
-st.subheader("Gráfico de Torta: Fertilizante por Temporada de Cultivo")
-fertilizer_by_season = df.groupby('season')['fertilizer'].mean().reset_index()
-fig3 = px.pie(fertilizer_by_season, values='fertilizer', names='season',
-              title='Promedio de Fertilizante por Temporada')
-st.plotly_chart(fig3)
+elif opcion == "Calculos estadisticos":
+    st.subheader("Calculos estadisticos de los Factores Determinantes en Ciclos Agrícolas")   
+    st.header("Resumen Estadístico")
+    st.dataframe(df.describe(), use_container_width=True)
 
-# Gráfico de torta: Pesticida por temporada de cultivo
-st.subheader("Gráfico de Torta: Pesticida por Temporada de Cultivo")
-pesticide_by_season = df.groupby('season')['pesticide'].mean().reset_index()
-fig4 = px.pie(pesticide_by_season, values='pesticide', names='season',
-              title='Promedio de Pesticida por Temporada')
-st.plotly_chart(fig4)
 
-# Gráfico de torta: Rendimiento por temporada
-st.subheader("Gráfico de Torta: Rendimiento por Temporada")
-yield_by_season = df.groupby('season')['yield'].mean().reset_index()
-colores = ["#9378E7", "#52A1F7", '#00CC96', "#FD78B0"] 
-fig5 = px.pie(yield_by_season, values='yield', names='season', title='Rendimiento Promedio por Temporada', color_discrete_sequence=colores) 
-st.plotly_chart(fig5)
+elif opcion == "Frecuencia de Cultivos":
+    st.subheader("Frecuencia de los Cultivos por Temporada")
+    freq_by_season_crop = df.groupby(['season', 'crop']).size().reset_index(name='count')
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    top_crops = (freq_by_season_crop.groupby('crop')['count']
+      .sum()
+      .nlargest(10)
+      .index)
+    freq_top = freq_by_season_crop[freq_by_season_crop['crop'].isin(top_crops)]
+    fig2 = px.bar(freq_top, x='crop', y='count',color='season', barmode='group',color_discrete_sequence=colors)
+    fig2.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig2)
+
+elif opcion == ("Fertilizante"):
+    st.subheader("Fertilizante por Temporada de Cultivo")
+    fertilizer_by_season = df.groupby('season')['fertilizer'].mean().reset_index()
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig3 = px.pie(fertilizer_by_season, values='fertilizer', names='season', color_discrete_sequence=colors)
+    fig3.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig3)
+
+elif opcion == ("Pesticida"):
+    st.subheader("Pesticida por Temporada de Cultivo")
+    pesticide_by_season = df.groupby('season')['pesticide'].mean().reset_index()
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig4 = px.pie(pesticide_by_season, values='pesticide', names='season', color_discrete_sequence=colors)
+    fig4.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig4)
+
+elif opcion == ("Rendimiento"):
+    st.subheader("Gráfico de Torta: Rendimiento por Temporada")
+    yield_by_season = df.groupby('season')['yield'].mean().reset_index()
+    colors = ["#9378E7", "#52A1F7", '#00CC96'] 
+    fig5 = px.pie(yield_by_season, values='yield', names='season', color_discrete_sequence=colors) 
+    fig5.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig5)
 
 # Scatter plots: Fertilizante vs Rendimiento por Temporada
-st.subheader("Scatter Plot: Fertilizante vs Rendimiento por Temporada")
-fig6 = px.scatter(df, x='fertilizer', y='yield', color='season',
-                  title='Relación entre Fertilizante y Rendimiento por Temporada',
-                  labels={'fertilizer': 'Fertilizante', 'yield': 'Rendimiento', 'season': 'Temporada'})
-st.plotly_chart(fig6)
+    st.subheader("Scatter Plot: Fertilizante vs Rendimiento por Temporada")
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig6 = px.scatter(df, x='fertilizer', y='yield', color='season',
+                  labels={'fertilizer': 'Fertilizante', 'yield': 'Rendimiento', 'season': 'Temporada'}, color_discrete_sequence=colors)
+    fig6.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig6)
 
 # Scatter plots: Pesticida vs Rendimiento por Temporada
-st.subheader("Scatter Plot: Pesticida vs Rendimiento por Temporada")
-fig7 = px.scatter(df, x='pesticide', y='yield', color='season',
-                  title='Relación entre Pesticida y Rendimiento por Temporada',
-                  labels={'pesticide': 'Pesticida', 'yield': 'Rendimiento', 'season': 'Temporada'})
-st.plotly_chart(fig7)
+    st.subheader("Scatter Plot: Pesticida vs Rendimiento por Temporada")
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig7 = px.scatter(df, x='pesticide', y='yield', color='season',
+                  labels={'pesticide': 'Pesticida', 'yield': 'Rendimiento', 'season': 'Temporada'}, color_discrete_sequence=colors)
+    fig7.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig7)
 
-# Gráfico de campana de Gauss: Precipitación por temporada y por años
-st.subheader("Gráfico de Campana de Gauss: Precipitación por Temporada y por Años")
-# Calcular precipitación promedio por año y temporada
-rain_by_year_season = df.groupby(['crop_year', 'season'])['annual_rainfall'].mean().reset_index()
-fig8 = px.line(rain_by_year_season, x='crop_year', y='annual_rainfall', color='season',
-              title='Precipitación Promedio por Temporada a lo Largo de los Años',
-              labels={'crop_year': 'Año', 'annual_rainfall': 'Precipitación Anual Promedio (mm)'})
-st.plotly_chart(fig8)
+elif opcion == ("Precipitación"):
+    st.subheader("Precipitación por Temporada y por Años")
+    rain_by_year_season = df.groupby(['crop_year', 'season'])['annual_rainfall'].mean().reset_index()
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig8 = px.line(rain_by_year_season, x='crop_year', y='annual_rainfall', color='season',
+                  labels={'crop_year': 'Año', 'annual_rainfall': 'Precipitación Anual Promedio (mm)'}, color_discrete_sequence=colors)
+    fig8.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig8)
 
-# Scatter plot: Fertilizante vs Precipitación por Temporada
-st.subheader("Scatter Plot: Fertilizante vs Precipitación por Temporada")
-fig9 = px.scatter(df, x='annual_rainfall', y='fertilizer', color='season',
-                   title='Relación Fertilizantes vs. Precipitación',
-                   labels={'annual_rainfall': 'Precipitación Anual (mm)', 'fertilizer': 'Fertilizante'})
-st.plotly_chart(fig9)
+elif opcion == ("Fertilizante vs Precipitación"):
+    st.subheader("Scatter Plot: Fertilizante vs Precipitación por Temporada")
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig9 = px.scatter(df, x='annual_rainfall', y='fertilizer', color='season',
+                   labels={'annual_rainfall': 'Precipitación Anual (mm)', 'fertilizer': 'Fertilizante'}, color_discrete_sequence=colors)
+    fig9.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig9)
 
-# Diagrama de dispersión: Precipitación vs Rendimiento por temporada
-st.subheader("Diagrama de Dispersión: Precipitación vs Rendimiento por Temporada")
-fig10 = px.scatter(df, x='annual_rainfall', y='yield', color='season',
-                   title='Relación entre Precipitación y Rendimiento por Temporada',
-                   labels={'annual_rainfall': 'Precipitación Anual (mm)', 'yield': 'Rendimiento', 'season': 'Temporada'})
-st.plotly_chart(fig10)
+elif opcion == ("Precipitación vs Rendimiento"):
+    st.subheader("Precipitación vs Rendimiento por Temporada")
+    colors = ["#9378E7", "#52A1F7", '#00CC96']
+    fig10 = px.scatter(df, x='annual_rainfall', y='yield', color='season',
+                       labels={'annual_rainfall': 'Precipitación Anual (mm)', 'yield': 'Rendimiento', 'season': 'Temporada'}, color_discrete_sequence=colors)
+    fig10.update_layout(font_color="black",  font_family="Arial Black", font_size=16)
+    st.plotly_chart(fig10)
 
 
 
