@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 
+
 st.set_page_config(page_title="Proyecto Cultivos", page_icon="logo solo.svg", layout="wide")
 
 df = pd.read_csv("agricultura.csv")
@@ -78,3 +79,24 @@ st.markdown("""
 st.dataframe(
         df.describe().style.format("{:.2f}"), 
         use_container_width=True )
+
+
+#Pregunta 1
+st.markdown("""
+        <h1 style='text-align: center; color: #444444; font-size: 18px; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Influencia del Fertilizante en el Rendimiento por Temporada
+        </h1>
+        """, unsafe_allow_html=True) 
+df_estudio = df.copy()
+columnas_interes = ['fertilizante', 'pesticida', 'rendimiento']
+correlacion = df_estudio.groupby('temporada')[columnas_interes].corr().unstack()
+fig_a = px.scatter(df_estudio, x='fertilizante', y='rendimiento', color='temporada', 
+    labels={
+        'fertilizante': 'Fertilizante Aplicado',
+        'rendimiento': 'Rendimiento (Yield)',
+        'temporada': 'Temporada del Año'
+    }, opacity=0.6)
+st.plotly_chart(fig_a)
+
+
+
