@@ -99,4 +99,16 @@ fig_a = px.scatter(df_estudio, x='fertilizante', y='rendimiento', color='tempora
 st.plotly_chart(fig_a)
 
 
+#pregunta 2
+st.markdown("""
+        <h1 style='text-align: center; color: #444444; font-size: 18px; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Rendimiento según Nivel de Fertilizante
+        </h1>
+        """, unsafe_allow_html=True) 
+mediana_fert = df_estudio['fertilizante'].median()
+df_estudio['nivel_fertilizante'] = df_estudio['fertilizante'].apply(lambda x: 'Alto' if x > mediana_fert else 'Bajo')
+resumen_b = df_estudio.groupby('nivel_fertilizante')['rendimiento'].describe()
+fig_b = px.box(df_estudio, x='nivel_fertilizante', y='rendimiento', color='temporada')
+st.plotly_chart(fig_b)
+
 
