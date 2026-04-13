@@ -72,17 +72,23 @@ estadisticas = estadisticas.rename(index={
 })
 
 st.markdown("""
-        <style>
-        /* Aplicamos el diseño a los contenedores de tablas */
-        [data-testid="stDataFrame"],.stPlotlyChart {
-        background-color: #FFFFFF;
-        border-radius: 20px;
-        padding: 15px;
-        border: 2px solid #E0E0E0;
-        box-shadow: 2px 2px 15px rgba(0,0,0,0.05);
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    <style>
+    [data-testid="stDataFrame"], 
+    .stPlotlyChart, 
+    [data-testid="stMetricBlock"],
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #FFFFFF !important;
+        border-radius: 20px !important;
+        padding: 15px !important;
+        border: 2px solid #E0E0E0 !important;
+        box-shadow: 2px 2px 15px rgba(0,0,0,0.05) !important;
+        margin-bottom: 15px !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"] > div {
+        border: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 
 #tabla de calculos basicos
@@ -176,10 +182,22 @@ st.plotly_chart(fig_obj1, use_container_width=True)
 #objetivo 2
 st.markdown("""
         <h1 style='text-align: center; color: #444444; font-size: 18px; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
-        Distribución Promedio de Factores por Temporada
+        Comparación de Factores Críticos por Temporada
         </h1>
         """, unsafe_allow_html=True)
-
+factores_por_temporada = df_estudio.groupby('temporada')[['precipitacion_anual','rendimiento', 
+                                                          'fertilizante', 'pesticida']].mean().reset_index()
+temporadas = factores_por_temporada['temporada'].unique()
+cols = st.columns(len(temporadas))
+for i, temp_nombre in enumerate(temporadas):
+    with cols[i]:
+        datos_temp = factores_por_temporada[factores_por_temporada['temporada'] == temp_nombre].iloc[0]
+        with st.container(border=True):
+            st.markdown(f"### {temp_nombre}")
+            st.metric(label="Lluvia Anual", value=f"{datos_temp['precipitacion_anual']:.2f} mm")
+            st.metric(label="Rendimiento", value=f"{datos_temp['rendimiento']:.3f}")
+            st.metric(label="Fertilizante", value=f"{datos_temp['fertilizante']:.2f} kg")
+            st.metric(label="Pesticida", value=f"{datos_temp['pesticida']:.2f} kg")
 
 
 #objetivo 3
