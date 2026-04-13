@@ -59,20 +59,30 @@ df['temporada'] = df['temporada'].replace('Summer', 'Zaid')
 df['temporada'] = df['temporada'].replace('Winter', 'Rabi')
 df['temporada'] = df['temporada'].replace('Autumn', 'Kharif')
 
+estadisticas = df.describe()
+estadisticas = estadisticas.rename(index={
+    'count': 'Total (N)',
+    'mean': 'Promedio',
+    'std': 'Des. Tipica',
+    'min': 'Mínimo',
+    '25%': '25%',
+    '50%': 'Mediana',
+    '75%': '75%',
+    'max': 'Máximo'
+})
+
 st.markdown("""
-    <style>
-    [data-testid="stDataFrame"], .stPlotlyChart {
-        width: 100% !important;  /* Forza el ancho completo */
+        <style>
+        /* Aplicamos el diseño a los contenedores de tablas */
+        [data-testid="stDataFrame"],.stPlotlyChart {
         background-color: #FFFFFF;
         border-radius: 20px;
         padding: 15px;
         border: 2px solid #E0E0E0;
         box-shadow: 2px 2px 15px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
-        overflow: hidden; /*
-    }
-    </style>
-    """, unsafe_allow_html=True)
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
 
 #tabla de calculos basicos
@@ -82,9 +92,8 @@ st.markdown("""
         </h1>
         """, unsafe_allow_html=True)   
 st.dataframe(
-        df.describe().style.format("{:.2f}"), 
-        use_container_width=True )
-
+    estadisticas.style.format("{:.2f}"), 
+    use_container_width=True)
 
 #Pregunta 1
 st.markdown("""
@@ -98,8 +107,8 @@ correlacion = df_estudio.groupby('temporada')[columnas_interes].corr().unstack()
 fig_a = px.scatter(df_estudio, x='fertilizante', y='rendimiento', color='temporada', 
     labels={
         'fertilizante': 'Fertilizante Aplicado',
-        'rendimiento': 'Rendimiento (Yield)',
-        'temporada': 'Temporada del Año'
+        'rendimiento': 'Rendimiento',
+        'temporada': 'Temporada'
     }, opacity=0.6)
 st.plotly_chart(fig_a, use_container_width=True)
 
@@ -162,6 +171,22 @@ fig_obj1 = px.box(df_estudio, x="temporada", y="precipitacion_anual",
                   labels={"precipitacion_anual": "Precipitación Anual (mm)", "temporada": "Temporada"},
                   color="temporada")
 st.plotly_chart(fig_obj1, use_container_width=True)
+
+
+#objetivo 2
+st.markdown("""
+        <h1 style='text-align: center; color: #444444; font-size: 18px; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Uso Promedio de Agroquímicos por Temporada
+        </h1>
+        """, unsafe_allow_html=True)
+promedios_agroquimicos = df_estudio.groupby('temporada')[['fertilizante', 'pesticida']].mean().reset_index()
+fig_obj2 = px.bar(promedios_agroquimicos, 
+                         x='temporada', y=['fertilizante', 'pesticida'],
+                         labels={'value':'Promedio Usado (Kg)', 'variable':'Tipo de Agroquímico', 'temporada':'Temporada'},
+                         barmode='group') 
+st.plotly_chart(fig_obj2, use_container_width=True)
+
+
 
 
 
