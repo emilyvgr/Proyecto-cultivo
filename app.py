@@ -61,14 +61,15 @@ df['temporada'] = df['temporada'].replace('Autumn', 'Kharif')
 
 st.markdown("""
     <style>
-    /* Estilo para los contenedores de datos y tablas */
     [data-testid="stDataFrame"], .stPlotlyChart {
+        width: 100% !important;  /* Forza el ancho completo */
         background-color: #FFFFFF;
         border-radius: 20px;
-        padding: 10px;
+        padding: 15px;
         border: 2px solid #E0E0E0;
         box-shadow: 2px 2px 15px rgba(0,0,0,0.05);
         margin-bottom: 20px;
+        overflow: hidden; /*
     }
     </style>
     """, unsafe_allow_html=True)
@@ -100,7 +101,7 @@ fig_a = px.scatter(df_estudio, x='fertilizante', y='rendimiento', color='tempora
         'rendimiento': 'Rendimiento (Yield)',
         'temporada': 'Temporada del Año'
     }, opacity=0.6)
-st.plotly_chart(fig_a)
+st.plotly_chart(fig_a, use_container_width=True)
 
 
 #pregunta 2
@@ -113,7 +114,7 @@ mediana_fert = df_estudio['fertilizante'].median()
 df_estudio['nivel_fertilizante'] = df_estudio['fertilizante'].apply(lambda x: 'Alto' if x > mediana_fert else 'Bajo')
 resumen_b = df_estudio.groupby('nivel_fertilizante')['rendimiento'].describe()
 fig_b = px.box(df_estudio, x='nivel_fertilizante', y='rendimiento', color='temporada')
-st.plotly_chart(fig_b)
+st.plotly_chart(fig_b, use_container_width=True)
 
 
 #pregunta 3
@@ -125,7 +126,12 @@ st.markdown("""
 alto_rendimiento = df_estudio[df_estudio['rendimiento'] >= df_estudio['rendimiento'].quantile(0.75)]
 lluvia_ideal = alto_rendimiento.groupby('temporada')['precipitacion_anual'].median()
 fig_c = px.histogram(alto_rendimiento, x='precipitacion_anual', color='temporada', barmode='overlay')
-st.plotly_chart(fig_c)
+fig_c.update_layout(
+    margin=dict(l=20, r=20, t=50, b=20),
+    paper_bgcolor="rgba(0,0,0,0)", 
+    plot_bgcolor="rgba(0,0,0,0)",
+    autosize=True)
+st.plotly_chart(fig_c, use_container_width=True)
 
 
 #pregunta 4
@@ -137,6 +143,25 @@ st.markdown("""
 vars_d = df_estudio[['precipitacion_anual', 'fertilizante', 'pesticida']]
 matriz_corr = vars_d.corr()
 fig_d = px.imshow(matriz_corr, text_auto=True, aspect="auto", color_continuous_scale='Blues')
-st.plotly_chart(fig_d)
+st.plotly_chart(fig_d, use_container_width=True)
+
+
+
+#objetivo 1
+st.markdown("""
+        <h1 style='text-align: center; color: #444444; font-size: 18px; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Variabilidad Pluviométrica por Temporada
+        </h1>
+        """, unsafe_allow_html=True)
+variabilidad_lluvia = df_estudio.groupby('temporada')['precipitacion_anual'].agg([
+    ('media', 'mean'), 
+    ('Desviacion', 'std'), 
+    ('min', 'min'), 
+    ('max', 'max')])
+fig_obj1 = px.box(df_estudio, x="temporada", y="precipitacion_anual",
+                  labels={"precipitacion_anual": "Precipitación Anual (mm)", "temporada": "Temporada"},
+                  color="temporada")
+st.plotly_chart(fig_obj1, use_container_width=True)
+
 
 
