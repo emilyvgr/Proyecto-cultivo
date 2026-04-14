@@ -62,7 +62,7 @@ La industria agrícola ha experimentado a lo largo del tiempo una dependencia im
 Para el profesional en Ciencias Estadísticas y Ciencia de Datos, este sector presenta un desafío fascinante: ¿Es posible modelar la incertidumbre en temporadas de cultivo?
 ¿Existen patrones que le permitan a las industrias entender los ciclos agrícolas?, bueno en este informe trataremos de implementarlo y descubrir esos patrones de una manera básica pero eficaz, la cual podrá entender sin necesidad de conocimientos o conceptos complejos en Estadística.
 
-El presente trabajo de investigación tiene como propósito realizar un análisis estadístico exhaustivo sobre el conjunto de datos” Agricultural Crop Yield in Indian States Dataset”, el cual abarca más de 19,000 registros de cultivos desde 1997 hasta 2020. A través del uso de herramientas computacionales avanzadas en R y técnicas de visualización de datos, se busca descomponer la varianza de los cultivos en función de factores críticos como el Clima, los Fertilizantes y los pesticidas.
+El presente trabajo de investigación tiene como propósito realizar un análisis estadístico exhaustivo sobre el conjunto de datos” Agricultural Crop Yield in Indian States Dataset”, el cual abarca más de 19,000 registros de cultivos desde 1997 hasta 2020. A través del uso de herramientas computacionales avanzadas en R y técnicas de visualización de datos, se busca descomponer la varianza de los cultivos en función de factores críticos como el Clima, los Fertilizantes y los Pesticidas.
 
 \section*{Estructura del Informe}
 
@@ -82,34 +82,42 @@ Este documento técnico se encuentra estructurado en cinco capítulos fundamenta
 
 
 \chapter{Planteamiento del Problema}
-Describir planteamiento del problema\
+En el mundo agrícola hay muchos temas por tratar, desde la salud nutricional hasta la gastronomía industrial, siendo temas de vital importancia para la vida humana. En este estudio nos vamos a ubicar en la agricultura de la India en el ámbito del cultivo, resaltando que una gestión eficiente de las temporadas de cultivo no solo garantiza cosechas óptimas, sino que genera seguridad alimentaria y eleva la calidad de vida de las personas. 
 
-Argumento final. Debido a esto, se plantea las siguientes preguntas de investigación:\
+ Analizaremos específicamente las temporadas de cultivo y como estas son influenciadas por distintos factores como el clima y los agroquímicos. Estas influencias son de gran interés para las empresas ya que una descripción de las mismas, servirían de referencia para mejorar su gestión de inversión.   
+
+Por lo antes mencionado surgen problemas por ejemplo a la hora de saber que cantidad de agroquímicos aplicar a un área en específico y en cierta estación de cultivos y también no saber el nivel de precipitación que tendremos en un año, lo cual puede ser determinante para prepararse en los ciclos de cultivo en dicho año.
+\
+
+Estos problemas se resuelven luego de modelar esta investigación donde podremos comprender mejor la situación y se recomendará posibles decisiones a tomar. Teniendo en cuenta esto surgen las siguientes preguntas de investigación:\
 
 
-\textbf{1.}	Pregunta1\
+\textbf{1.}	¿De qué manera influyen la cantidad de agroquímicos en los ciclos de cultivos? \
 
-\textbf{2.}	Pregunta2\
+\textbf{2.}	¿Por qué son necesario los fertilizantes y los pesticidas en una temporada de cultivo?\
 
-\textbf{3.}	Pregunta3\
+\textbf{3.}	¿Cuáles son las precipitaciones anuales que favorecen a las temporadas de cultivo? \
 
+\textbf{4.}	¿La cantidad de agroquímicos varía según los niveles de precipitación?   \
 
 \section{Justificación}
 
-Justificación del trabajo de investigación\
+La justificación de este trabajo de investigación reside en la necesidad de aplicar técnicas estadísticas rigurosas y herramientas de software como R y Python para mitigar la incertidumbre de sembrar los cultivos en el sector agrícola de la India. 
+
+Desde el punto de vista práctico, los resultados permitirán a las Industrias tomar decisiones basadas en datos (Data-Driven Decisions) sobre que materiales invertir o en qué temporada del año se debe desarrollar. Con una metodología replicable utilizando R y LaTeX para el análisis exploratorio y descriptivo de grandes volúmenes de datos. \
 
 \section{Objetivos}
  
 \subsection{Objetivo General}
 \begin{itemize}
-  \item{Describir objetivo general del trabajo de investigación}
+  \item{Realizar un análisis estadístico descriptivo de datos de cultivos en diferentes temporadas de la India durante el período 2010-2020.  para identificar y describir las características más influyentes en las temporadas de cultivos. }
 \end{itemize}
 
 \subsection{Objetivos Específicos}
 \begin{itemize}
-  \item{Describir objetivo 1 del trabajo de investigación}
-  \item{Describir objetivo 2 del trabajo de investigación}
-  \item{Describir objetivo 3 del trabajo de investigación}
+  \item{Analizar la variabilidad pluviométrica mediante el uso de indicadores estadísticos, con el fin de determinar una óptima gestión del recurso hídrico. }
+  \item{Observar la distribución de los factores que afectan a los cultivos por temporada del año. }
+  \item{Categorizar temporadas de mayor y menor demanda tanto de pesticidas como de fertilizantes. }
 \end{itemize}
 
 
