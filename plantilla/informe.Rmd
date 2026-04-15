@@ -127,34 +127,57 @@ Desde el punto de vista práctico, los resultados permitirán a las Industrias t
 
 La cobertura horizontal abarca las características de cada cultivo registrado, donde se consideran las dimensiones descriptivas del cultivo y las métricas de influencia agrícola. \
 
+\subsection{Vertical}
+
+La cobertura vertical del trabajo de investigación abarca un total de *9,884*  observaciones (registros) donde cada fila representa un cultivo obtenido en la India con sus características correspondientes, con un alcance temporal que abarca desde el año 2010 hasta el año 2020. (Estos registros son previos al ETL) 
+
 \begin{table}[ht]
 \centering
 \caption{Variables consideradas} 
 \resizebox{10cm}{!} {
 \begin{tabular}{ccc}
   \hline
-\ \ \ \ \ NOMBRE DE LA VARIABLE \\ 
+  \textbf{TIPO} & \textbf{VARIABLE} & \textbf{DESCRIPCIÓN} \\ 
   \hline
-   VARIABLE 1 \\ 
-VARIABLE 2\\ 
-VARIABLE n\\ 
+  Categórica & Crop & Nombre del cultivo \\ 
+  Categórica & Season & Temporada que se cultiva\\ 
+  Numérica & Annual\_Rainfall & Precipitación anual \\ 
+    Numérica & Crop\_Year & Año que se cultivo (2010-2020) \\ 
+    Numérica & Fertilizer & Fertilizante utilizado en los cultivos (kg)   \\ 
+    Numérica & Pesticide & Pesticida utilizado en los cultivos (kg) \\ 
+    Numérica & Area & Superficie de la tierra en hectáreas   \\ 
+    Numérica & Production &  Producción en toneladas metricas   \\ 
+    Numérica &  Yield  & Rendimiento de producción    \\ 
+ 
+
+
    \hline
 \end{tabular}
 }
 \end{table}
 
-\subsection{Vertical}
 
-La cobertura vertical del trabajo de investigación abarca un total de *9,884*  observaciones (registros) donde cada fila representa un cultivo obtenido en la India con sus características correspondientes, con un alcance temporal que abarca desde el año 2010 hasta el año 2020. (Estos registros son previos al ETL) 
 
 
 \section{Periodo de Referencia}
 
-Describir la fuente y el Periodo de Referencia utilizado en el trabajo de investigación
+La fuente de datos a estudiar corresponde al repositorio abierto de Kaggle (“Agricultural Crop Yield in Indian States Dataset”). Donde se toma como período de referencia los registros pertenecientes al intervalo de tiempo 2010-2020, donde la consistencia de los datos es mayor entre los años 2017-2019 (previo a al ETL), El procesamiento de la información se realizó con corte a febrero de 2026. 
 
 \section{Variables}
 
-Describir la variable en estudio en el trabajo de investigación
+La variable principal en estudio (Variable Dependiente/Objetivo) es Season, que representan las Temporadas de cultivo, medido en 3 estaciones “Kharif” (Otoño), “Zaid” (Verano corto) y  ”Rabi” (Invierno) ,siendo las principales temporadas de cultivo en la India  
+
+Como variables explicativas o independientes se analizan: 
+
+\begin{enumerate}
+  \item Variables Temporales: \textbf{Crop year. }
+  \item Variables Categóricas: \textbf{Crop}
+  \item Variables Influyentes: \textbf{Annual\_Rainfall , Fertilizer y Pesticide . }
+    \item Variable Geográfica: \textbf{Area}
+        \item Variables Explicativas: \textbf{ Area , Yield y Production.  }
+
+    
+\end{enumerate}
 
 \chapter{Marco Teórico}
 
