@@ -197,6 +197,19 @@ En el contexto de este trabajo, el EDA permitirá detectar *outliers* nulos y ma
 
 Los cocientes estadísticos son la razón, la proporción, el porcentaje, las tasas entre otros. El cociente me dice que cantidad del denominador este contenido en el numerador, Fueron desarrollados por Gaspar Neumann y Edmund Halley. Es importante para nuestro estudio porque tomaremos conceptos como la razón, tasas para comparar las relaciones de nuestras variables influyentes en los ciclos agrícolas.\
 
+**Razón**: Es cuando existe una relación cuantitativa entre 2 cantidades que comparten el mismo total. Fue Karl Pearson, Francis Galton pioneros en el desarrollo de este concepto. Tomaremos este concepto importante para comprender la relación cuantitativa entre las variables *Pesticide* y *Fertilizer* en las temporadas de cultivos. 
+
+**Tasas**: Son razones dinámicas porque transcurren en el tiempo y se multiplican generalmente por 1000. John Graunt y figuras posteriores como Bayes o Bernoulli la continuaron desarrollándola. La usaremos para saber la cantidad de agroquímicos en un determinado año. 
+
+\subsection{Medidas de Posición:}
+
+Son medidas que ayudan a ubicar los datos  fácilmente. Están constituidas principalmente por cuartiles, deciles y percentiles. Estos dividen el conjunto de datos en distintas partes, dividiendo los cuartiles en 4 partes iguales, los de deciles en partes iguales de 10 y los percentiles dividiendo en 100 partes iguales. Para nuestro informe se usará para obtener indicadores importantes que nos ayudaran a analizar las distribuciones de los datos apoyando a responder preguntas de investigación y objetivos planteados. También este concepto se usa en el Análisis Exploratorio de Datos (EDA). Thomas Bayes, Jakob Bernoulli, Pafnuti Chebyshev y Francis Galton fueron los pioneros desarrollando este tema. \
+
+\subsection{Medidas Tendencia Central:}
+
+Son medidas ubicadas en el centro de la distribución. Denominados promedios y se dividen en dos tipos los matemáticos y los no matemáticos. Enfocando este tema al estudio es de importancia ya que estas medidas nos permiten comprender las tendencias de equilibrio a esperar en los datos. Los autores principales que desarrollaron este tema fueron: Gauss, Karl Pearson y Cournot.  \
+
+
 \subsection{Definición n}
 
 Descripción de la definición n\
