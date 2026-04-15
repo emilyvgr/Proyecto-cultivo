@@ -62,7 +62,7 @@ La industria agrícola ha experimentado a lo largo del tiempo una dependencia im
 Para el profesional en Ciencias Estadísticas y Ciencia de Datos, este sector presenta un desafío fascinante: ¿Es posible modelar la incertidumbre en temporadas de cultivo?
 ¿Existen patrones que le permitan a las industrias entender los ciclos agrícolas?, bueno en este informe trataremos de implementarlo y descubrir esos patrones de una manera básica pero eficaz, la cual podrá entender sin necesidad de conocimientos o conceptos complejos en Estadística.
 
-El presente trabajo de investigación tiene como propósito realizar un análisis estadístico exhaustivo sobre el conjunto de datos” Agricultural Crop Yield in Indian States Dataset”, el cual abarca más de 19,000 registros de cultivos desde 1997 hasta 2020. A través del uso de herramientas computacionales avanzadas en R y técnicas de visualización de datos, se busca descomponer la varianza de los cultivos en función de factores críticos como el Clima, los Fertilizantes y los pesticidas.
+El presente trabajo de investigación tiene como propósito realizar un análisis estadístico exhaustivo sobre el conjunto de datos” Agricultural Crop Yield in Indian States Dataset”, el cual abarca más de 19,000 registros de cultivos desde 1997 hasta 2020. A través del uso de herramientas computacionales avanzadas en R y técnicas de visualización de datos, se busca descomponer la varianza de los cultivos en función de factores críticos como el Clima, los Fertilizantes y los Pesticidas.
 
 \section*{Estructura del Informe}
 
@@ -71,7 +71,7 @@ Este documento técnico se encuentra estructurado en cinco capítulos fundamenta
 \begin{itemize}
     \item En el \textbf{Capítulo I}, se plantea la problemática de no comprender las influencias en los ciclos agrícolas, formulando las preguntas de investigación y delimitando el alcance temporal y geográfico del estudio.
     
-    \item El \textbf{Capítulo II} establece el Marco Téorico, definiendo los conceptos estadísticos clave como las medidas de tendencia central, Medidas de Dispersión y correlación, necesarios para la interpretación de los datos.
+    \item El \textbf{Capítulo II} establece el Marco Téorico, definiendo los conceptos estadísticos clave como las medidas de tendencia central, medidas de dispersión y correlación, necesarios para la interpretación de los datos.
     
     \item El \textbf{Capítulo III} describe el Marco Metodológico, detallando el proceso de limpieza de datos (ETL), las pruebas de hipótesis y los algoritmos utilizados para validar la calidad de la información.
     
@@ -82,34 +82,42 @@ Este documento técnico se encuentra estructurado en cinco capítulos fundamenta
 
 
 \chapter{Planteamiento del Problema}
-Describir planteamiento del problema\
+En el mundo agrícola hay muchos temas por tratar, desde la salud nutricional hasta la gastronomía industrial, siendo temas de vital importancia para la vida humana. En este estudio nos vamos a ubicar en la agricultura de la India en el ámbito del cultivo, resaltando que una gestión eficiente de las temporadas de cultivo no solo garantiza cosechas óptimas, sino que genera seguridad alimentaria y eleva la calidad de vida de las personas. 
 
-Argumento final. Debido a esto, se plantea las siguientes preguntas de investigación:\
+ Analizaremos específicamente las temporadas de cultivo y como estas son influenciadas por distintos factores como el clima y los agroquímicos. Estas influencias son de gran interés para las empresas ya que una descripción de las mismas, servirían de referencia para mejorar su gestión de inversión.   
+
+Por lo antes mencionado surgen problemas por ejemplo a la hora de saber que cantidad de agroquímicos aplicar a un área en específico y en cierta estación de cultivos y también no saber el nivel de precipitación que tendremos en un año, lo cual puede ser determinante para prepararse en los ciclos de cultivo en dicho año.
+\
+
+Estos problemas se resuelven luego de modelar esta investigación donde podremos comprender mejor la situación y se recomendará posibles decisiones a tomar. Teniendo en cuenta esto surgen las siguientes preguntas de investigación:\
 
 
-\textbf{1.}	Pregunta1\
+\textbf{1.}	¿De qué manera influyen la cantidad de agroquímicos en los ciclos de cultivos? \
 
-\textbf{2.}	Pregunta2\
+\textbf{2.}	¿Por qué son necesario los fertilizantes y los pesticidas en una temporada de cultivo?\
 
-\textbf{3.}	Pregunta3\
+\textbf{3.}	¿Cuáles son las precipitaciones anuales que favorecen a las temporadas de cultivo? \
 
+\textbf{4.}	¿La cantidad de agroquímicos varía según los niveles de precipitación?   \
 
 \section{Justificación}
 
-Justificación del trabajo de investigación\
+La justificación de este trabajo de investigación reside en la necesidad de aplicar técnicas estadísticas rigurosas y herramientas de software como R y Python para mitigar la incertidumbre de sembrar los cultivos en el sector agrícola de la India. 
+
+Desde el punto de vista práctico, los resultados permitirán a las Industrias tomar decisiones basadas en datos (Data-Driven Decisions) sobre que materiales invertir o en qué temporada del año se debe desarrollar. Con una metodología replicable utilizando R y LaTeX para el análisis exploratorio y descriptivo de grandes volúmenes de datos. \
 
 \section{Objetivos}
  
 \subsection{Objetivo General}
 \begin{itemize}
-  \item{Describir objetivo general del trabajo de investigación}
+  \item{Realizar un análisis estadístico descriptivo de datos de cultivos en diferentes temporadas de la India durante el período 2010-2020.  para identificar y describir las características más influyentes en las temporadas de cultivos. }
 \end{itemize}
 
 \subsection{Objetivos Específicos}
 \begin{itemize}
-  \item{Describir objetivo 1 del trabajo de investigación}
-  \item{Describir objetivo 2 del trabajo de investigación}
-  \item{Describir objetivo 3 del trabajo de investigación}
+  \item{Analizar la variabilidad pluviométrica mediante el uso de indicadores estadísticos, con el fin de determinar una óptima gestión del recurso hídrico. }
+  \item{Observar la distribución de los factores que afectan a los cultivos por temporada del año. }
+  \item{Categorizar temporadas de mayor y menor demanda tanto de pesticidas como de fertilizantes. }
 \end{itemize}
 
 
@@ -117,7 +125,11 @@ Justificación del trabajo de investigación\
 
 \subsection{Horizontal}
 
-Describir la cobertura Horizontal del trabajo de investigación\
+La cobertura horizontal abarca las características de cada cultivo registrado, donde se consideran las dimensiones descriptivas del cultivo y las métricas de influencia agrícola. \
+
+\subsection{Vertical}
+
+La cobertura vertical del trabajo de investigación abarca un total de *9,884*  observaciones (registros) donde cada fila representa un cultivo obtenido en la India con sus características correspondientes, con un alcance temporal que abarca desde el año 2010 hasta el año 2020. (Estos registros son previos al ETL) 
 
 \begin{table}[ht]
 \centering
@@ -125,43 +137,88 @@ Describir la cobertura Horizontal del trabajo de investigación\
 \resizebox{10cm}{!} {
 \begin{tabular}{ccc}
   \hline
-\ \ \ \ \ NOMBRE DE LA VARIABLE \\ 
+  \textbf{TIPO} & \textbf{VARIABLE} & \textbf{DESCRIPCIÓN} \\ 
   \hline
-   VARIABLE 1 \\ 
-VARIABLE 2\\ 
-VARIABLE n\\ 
+  Categórica & Crop & Nombre del cultivo \\ 
+  Categórica & Season & Temporada que se cultiva\\ 
+  Numérica & Annual\_Rainfall & Precipitación anual \\ 
+    Numérica & Crop\_Year & Año que se cultivo (2010-2020) \\ 
+    Numérica & Fertilizer & Fertilizante utilizado en los cultivos (kg)   \\ 
+    Numérica & Pesticide & Pesticida utilizado en los cultivos (kg) \\ 
+    Numérica & Area & Superficie de la tierra en hectáreas   \\ 
+    Numérica & Production &  Producción en toneladas metricas   \\ 
+    Numérica &  Yield  & Rendimiento de producción    \\ 
+ 
+
+
    \hline
 \end{tabular}
 }
 \end{table}
 
-\subsection{Vertical}
 
-Describir la cobertura Vertical del trabajo de investigación
 
 
 \section{Periodo de Referencia}
 
-Describir la fuente y el Periodo de Referencia utilizado en el trabajo de investigación
+La fuente de datos a estudiar corresponde al repositorio abierto de Kaggle (“Agricultural Crop Yield in Indian States Dataset”). Donde se toma como período de referencia los registros pertenecientes al intervalo de tiempo 2010-2020, donde la consistencia de los datos es mayor entre los años 2017-2019 (previo a al ETL), El procesamiento de la información se realizó con corte a febrero de 2026. 
 
 \section{Variables}
 
-Describir la variable en estudio en el trabajo de investigación
+La variable principal en estudio (Variable Dependiente/Objetivo) es Season, que representan las Temporadas de cultivo, medido en 3 estaciones “Kharif” (Otoño), “Zaid” (Verano corto) y  ”Rabi” (Invierno) ,siendo las principales temporadas de cultivo en la India  
+
+Como variables explicativas o independientes se analizan: 
+
+\begin{enumerate}
+  \item Variables Temporales: \textbf{Crop year. }
+  \item Variables Categóricas: \textbf{Crop}
+  \item Variables Influyentes: \textbf{Annual\_Rainfall , Fertilizer y Pesticide . }
+    \item Variable Geográfica: \textbf{Area}
+        \item Variables Explicativas: \textbf{ Area , Yield y Production.  }
+
+    
+\end{enumerate}
 
 \chapter{Marco Teórico}
 
 
 \section{Bases Teóricas}
 
-Resumen de las bases teoricas explicadas en el capitulo y su importancia\
+El presente capítulo establece los fundamentos matemáticos y estadísticos necesarios para el análisis de los datos de influencia en ciclos agrícolas. Se aborda la teoría desde una perspectiva descriptiva, priorizando la caracterización de la distribución de los ciclos agrícolas (variable independiente) y la identificación de patrones a lo largo del tiempo. 
 
-\subsection{Definición 1}
+La comprensión de estos conceptos es crucial para interpretar correctamente las variables influyentes como el Annual\_Rainfall , Fertilizer y Pesticide . Las cuales se compararan con las variables explicativas Area , Yield y Production. para dar resultados y recomendaciones confiables.\
 
-Descripción de la definición 1\
+\subsection{Análisis Exploratorio de Datos (EDA) }
 
-\subsection{Definición 2}
+El Análisis Exploratorio de Datos, formalizado por John Tukey, es el paso preliminar crítico en cualquier estudio de ciencia de datos. Su objetivo es resumir las características principales de un conjunto de datos, a menudo con métodos visuales, sin formular hipótesis a priori.\
+En el contexto de este trabajo, el EDA permitirá detectar *outliers* nulos y mal categorizados (estaciones repetidas) y verificar si la distribución de las variables influyentes sigue una distribución parecida a la de la variable independiente (Season).  \
 
-Descripción de la definición 2\
+\subsection{Cocientes estadísticos:}
+
+Los cocientes estadísticos son la razón, la proporción, el porcentaje, las tasas entre otros. El cociente me dice que cantidad del denominador este contenido en el numerador, Fueron desarrollados por Gaspar Neumann y Edmund Halley. Es importante para nuestro estudio porque tomaremos conceptos como la razón, tasas para comparar las relaciones de nuestras variables influyentes en los ciclos agrícolas.\
+
+**Razón**: Es cuando existe una relación cuantitativa entre 2 cantidades que comparten el mismo total. Fue Karl Pearson, Francis Galton pioneros en el desarrollo de este concepto. Tomaremos este concepto importante para comprender la relación cuantitativa entre las variables *Pesticide* y *Fertilizer* en las temporadas de cultivos. 
+
+**Tasas**: Son razones dinámicas porque transcurren en el tiempo y se multiplican generalmente por 1000. John Graunt y figuras posteriores como Bayes o Bernoulli la continuaron desarrollándola. La usaremos para saber la cantidad de agroquímicos en un determinado año. 
+
+\subsection{Medidas de Posición:}
+
+Son medidas que ayudan a ubicar los datos  fácilmente. Están constituidas principalmente por cuartiles, deciles y percentiles. Estos dividen el conjunto de datos en distintas partes, dividiendo los cuartiles en 4 partes iguales, los de deciles en partes iguales de 10 y los percentiles dividiendo en 100 partes iguales. Para nuestro informe se usará para obtener indicadores importantes que nos ayudaran a analizar las distribuciones de los datos apoyando a responder preguntas de investigación y objetivos planteados. También este concepto se usa en el Análisis Exploratorio de Datos (EDA). Thomas Bayes, Jakob Bernoulli, Pafnuti Chebyshev y Francis Galton fueron los pioneros desarrollando este tema. \
+
+\subsection{Medidas Tendencia Central:}
+
+Son medidas ubicadas en el centro de la distribución. Denominados promedios y se dividen en dos tipos los matemáticos y los no matemáticos. Enfocando este tema al estudio es de importancia ya que estas medidas nos permiten comprender las tendencias de equilibrio a esperar en los datos. Los autores principales que desarrollaron este tema fueron: Gauss, Karl Pearson y Cournot.  \
+
+**Media Aritmética**: Es la representación de los datos manteniendo un equilibrio en toda la serie de datos, esta definición es importantísima para la estadística ya que es un valor que agrupa un conjunto de datos, en el contexto de nuestro estudio es fundamental para responder a lo planteado. Carl Friedrich Gauss y Adrien-Marie Legendre desarrolladores de esta importante medida. 
+
+**Mediana**: Es el valor que ocupa la posición central de un conjunto de datos ordenado. Centrado en nuestro estudio es relevante ya que nos permite obtener un indicador más robusto a valores atípicos es decir una medida más representativa. Antoine Augustin Cournot y Francis Galton fueron pioneros en esta definición. 
+
+**Moda**: Es el valor que aparece con mayor frecuencia en el conjunto de datos. Orientado en el informe es de interés ya que nos dictara la mayor frecuencia de los datos, indicando que ese dato es importante ya que dirá una representación de lo común. Karl Pearson fue el principal desarrollador de la moda donde se basó en una idea de que siempre destacaba un dato ante los demás por ser el más común. 
+
+**Media Geométrica**: La media geométrica es igual a la raíz n-esima del producto de n valores positivos, es decir multiplica los valores a diferencia de la media aritmética, lo que es ideal cuando se desea saber el promedio del tanto por ciento o disminución de una cosa. Desde épocas de Pitágoras hasta las bases firmes de Irving Fisher esta medida ha llevado contribuciones a lo largo del tiempo. Llegando a ser una alternativa excelente cuando la media no es lo indicado. 
+
+**Media Armónica**:
+Se denota H y se obtiene como los recíprocos de una serie dada, luego se determina la media aritmética de dichos recíprocos, y se toma la inversa de dicha media como la media armónica. Situando este concepto en el análisis de la influencia a los ciclos agrícolas es válido ya que promedia cantidades de químicos aplicados en una hectárea en específico. Desde épocas de Archytas de Tarento hasta Isaac Newton y Gottfried Leibniz se desarrolló inicialmente este concepto, basándose un poco en la música y en la física. 
 
 \subsection{Definición n}
 
